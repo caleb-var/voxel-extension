@@ -1,0 +1,36 @@
+import os
+from glob import glob
+
+Import("base_env")
+
+env = base_env.Clone()
+
+platform = env["platform"]
+target = env["target"]
+godot_cpp_path = env["godot_cpp_path"]
+
+# Includes
+env.Append(CPPPATH=[
+    os.path.join(godot_cpp_path, "include"),
+    os.path.join(godot_cpp_path, "include", "gen"),
+    "include",
+])
+
+# Link to godot-cpp
+env.Append(LIBPATH=[os.path.join(godot_cpp_path, "bin")])
+
+# This must match the base name of the library file in deps/godot-cpp/bin
+# e.g. libgodot-cpp.windows.template_debug.x86_64.a / .lib
+lib_name = f"godot-cpp.{platform}.{target}.x86_64"
+env.Append(LIBS=[lib_name])
+
+# Sources
+sources = glob("src/*.cpp")
+
+# Output: addons/voxel/bin/voxel.(dll/so/dylib)
+output_dir = os.path.join("..", "..", "addons", "voxel", "bin")
+os.makedirs(output_dir, exist_ok=True)
+
+target_name = os.path.join(output_dir, "voxel")
+
+env.SharedLibrary(target=target_name, source=sources)

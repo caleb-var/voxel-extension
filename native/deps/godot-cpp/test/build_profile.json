@@ -8,7 +8,6 @@
 		"OS",
 		"TileMap",
 		"TileSet",
-		"Tween",
 		"Viewport"
 	]
 }

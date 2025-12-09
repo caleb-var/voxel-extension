@@ -124,14 +124,14 @@ public:
 		sorter.sort(data, len);
 	}
 
-	Size bsearch(const T &p_value, bool p_before) const {
+	Size bsearch(const T &p_value, bool p_before) {
 		return bsearch_custom<_DefaultComparator<T>>(p_value, p_before);
 	}
 
 	template <typename Comparator, typename Value, typename... Args>
-	Size bsearch_custom(const Value &p_value, bool p_before, Args &&...args) const {
+	Size bsearch_custom(const Value &p_value, bool p_before, Args &&...args) {
 		SearchArray<T, Comparator> search{ args... };
-		return search.bisect(ptr(), size(), p_value, p_before);
+		return search.bisect(ptrw(), size(), p_value, p_before);
 	}
 
 	Vector<T> duplicate() {

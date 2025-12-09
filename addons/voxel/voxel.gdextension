@@ -1,0 +1,13 @@
+[configuration]
+entry_symbol = "voxel_library_init"
+compatibility_minimum = 4.0
+
+[libraries]
+windows.debug = "res://addons/voxel/bin/voxel.dll"
+windows.release = "res://addons/voxel/bin/voxel.dll"
+
+linux.debug = "res://addons/voxel/bin/libvoxel.so"
+linux.release = "res://addons/voxel/bin/libvoxel.so"
+
+macos.debug = "res://addons/voxel/bin/libvoxel.dylib"
+macos.release = "res://addons/voxel/bin/libvoxel.dylib"
