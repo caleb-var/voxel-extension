@@ -1,6 +1,7 @@
+#include <gdextension_interface.h>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/defs.hpp>
-#include "register_types.h"
+
 #include "voxel.h"
 
 using namespace godot;
@@ -17,9 +18,9 @@ void uninitialize_voxel_module(ModuleInitializationLevel p_level) {
     if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
         return;
     }
+    // Nothing to do yet.
 }
 
-// Entry point symbol, referenced by voxel.gdextension
 extern "C" GDExtensionBool GDE_EXPORT voxel_library_init(
     GDExtensionInterfaceGetProcAddress p_get_proc_address,
     const GDExtensionClassLibraryPtr p_library,

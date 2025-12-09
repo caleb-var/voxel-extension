@@ -1,24 +1,28 @@
+#!/usr/bin/env python
 import os
-from SCons.Script import ARGUMENTS, SConscript, Environment, Dir
+from SCons.Script import *
 
-# Defaults
-platform = ARGUMENTS.get("platform", "windows")           # windows/linux/macos
-target   = ARGUMENTS.get("target", "template_debug")      # template_debug/template_release
+# 1) Load the build environment from godot-cpp
+#    (this sets up include paths, libs, platform/target, etc.)
+env = SConscript("deps/godot-cpp/SConstruct")
 
-env = Environment()
+# 2) Add your own headers folder
+#    (relative to this SConstruct, i.e. native/voxel/include)
+env.Append(CPPPATH=["voxel/include"])
 
-env["platform"] = platform
-env["target"] = target
+# 3) Collect your C++ source files
+#    (again relative to native/)
+sources = Glob("voxel/src/*.cpp")
 
-# Path to godot-cpp relative to this SConstruct
-# This resolves to an absolute path like C:\Game Development\gdext\native\deps\godot-cpp
-godot_cpp_path = Dir("deps/godot-cpp").abspath
-env["godot_cpp_path"] = godot_cpp_path
+# 4) Where to place the built library:
+#    ../addons/voxel/bin/voxel.(dll/so/dylib)
+out_dir = os.path.join("..", "addons", "voxel", "bin")
+if not os.path.exists(out_dir):
+    os.makedirs(out_dir)
 
-# C++ flags
-env.Append(CPPFLAGS=["-std=c++17"])
-if platform != "windows":
-    env.Append(CPPFLAGS=["-Wall", "-Wextra"])
+# SCons will append the correct extension automatically (.dll/.so/.dylib)
+target_path = os.path.join(out_dir, "voxel")
 
-# Build the voxel extension
-SConscript("voxel/SConstruct", exports={"base_env": env})
+library = env.SharedLibrary(target_path, source=sources)
+
+Default(library)
