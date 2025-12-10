@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnfuhlh8gkvc0"]
+
+[ext_resource type="Script" uid="uid://bmixb8umu0ll6" path="res://scripts/RunNativeMesherBenchmark.gd" id="1_k14ws"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k14ws"]
+
+[sub_resource type="Sky" id="Sky_nbv1m"]
+sky_material = SubResource("ProceduralSkyMaterial_k14ws")
+
+[sub_resource type="Environment" id="Environment_k14ws"]
+background_mode = 2
+sky = SubResource("Sky_nbv1m")
+
+[node name="World" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.70710677, 0.35355338, -0.6123724, 0, 0.8660254, 0.5, 0.70710677, -0.35355338, 0.6123724, 0, 20, 0)
+
+[node name="benchmark" type="Node3D" parent="."]
+script = ExtResource("1_k14ws")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k14ws")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

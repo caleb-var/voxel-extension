@@ -8,7 +8,7 @@ env = SConscript("deps/godot-cpp/SConstruct")
 
 # 2) Add your own headers folder
 #    (relative to this SConstruct, i.e. native/voxel/include)
-env.Append(CPPPATH=["voxel/include"])
+env.Append(CPPPATH=["voxel/deps"])
 
 # 3) Collect your C++ source files
 #    (again relative to native/)

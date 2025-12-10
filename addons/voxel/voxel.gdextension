@@ -1,6 +1,6 @@
 [configuration]
-entry_symbol = "voxel_library_init"
-compatibility_minimum = 4.0
+entry_symbol = "voxel_greedy_mesher_library_init"
+compatibility_minimum = 4.3
 
 [libraries]
 windows.debug = "res://addons/voxel/bin/voxel.dll"
